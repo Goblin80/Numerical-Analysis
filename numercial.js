@@ -26,7 +26,7 @@ class Equation
 
 	f(x)
 	{
-		return Number(eval(this.rep(this.symbol, x)).toFixed(precision));
+		return Number(eval(this.rep(this.symbol, '(' + x + ')')).toFixed(precision));
 	}
 }
 
