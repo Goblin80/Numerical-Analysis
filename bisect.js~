@@ -1,0 +1,88 @@
+var eq,
+	tol = 1e-2,
+	precision = 4,
+	tab = [],
+	iterations;
+
+class Equation
+{
+	constructor(rawEq, symbol = 'x')
+	{
+		this.symbol = symbol;
+		this.e = rawEq;
+		this.e = this.e.toLowerCase();
+		this.e = this.rep('\\^', '**');
+		this.prependMath();
+		console.log(this.e);
+	}
+
+	rep(p, q)
+	{
+		return this.e.replace(new RegExp(p, 'g'), q);
+	}
+
+	prependMath()
+	{
+		var fnlist = Object.getOwnPropertyNames(Math);
+		for(var f of fnlist)
+			this.e = this.rep(f, "Math." + f);
+	}
+
+	f(x)
+	{
+		return Number(eval(this.rep(this.symbol, x)).toFixed(precision));
+	}
+}
+
+function calc()
+{
+	eq = new Equation(in_eq.value);
+	iterations = 0;
+	precision = Number(slide_precision.value);
+	tol = eval(10 **-slide_tol.value);
+	cleartab();
+	filltab(0.5,1);
+	printtab();
+}
+
+function filltab(a, b, prev_c = 0)
+{
+	c = Number(((a + b) / 2.0).toFixed(precision));
+	cdiff = Math.abs(c - prev_c) <= tol;
+	tab.push([a, b, c, eq.f(a), eq.f(b), eq.f(c), Math.abs(eq.f(c)) <= tol ? "YES" : "NO", prev_c ? (cdiff ? "YES" : "NO") : '\u{2212}']);
+
+	if(Math.abs(eq.f(c)) && cdiff)
+	{
+		console.log(c);
+		out_ans.innerText = c;
+		return;
+	}
+	else if(iterations > 1e3)
+	{
+		alert("Too many iterations, maybe no solution.");
+		return;
+	}
+	else if(eq.f(a) * eq.f(c) > 0) filltab(c, b, c);
+	else if(eq.f(a) * eq.f(c) < 0) filltab(a, c, c);
+}
+
+function printtab()
+{
+	for(row of tab)
+	{
+		r = itable.insertRow();
+		c = r.insertCell();
+		c.innerText = itable.rows.length - 1;
+		c.className = 'itCount';
+		for(c of row)
+			r.insertCell().innerText = c;
+	}
+}
+
+function cleartab()
+{
+	tab = [];
+	l = itable.rows.length;
+	while(--l)
+		itable.deleteRow(l);
+}

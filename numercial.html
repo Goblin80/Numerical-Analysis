@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>Numercial Methods</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="numercial.css">
+		<script type="text/javascript" src="MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+		<!-- <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"> </script> -->
+	</head>
+	<body>
+	<fieldset style="float:left;margin-right:20px;width:21%">
+		<legend>Equation Parameters</legend>
+		<center>
+			<p><input type="text" placeholder="Equation goes here" id="in_eq" value="sin(x) - x^3"></p>
+			<p><input type="text" placeholder="from" id="eq_start" size="2" value = "0.5">
+				<input type="text" placeholder="to" id="eq_end" size="2" value = "1"></p>
+
+			
+			<p><label>Precision</label><input type="range" min="2" max="10" value="4" id="slide_precision" onchange="calc()"></p>
+			<p><label>Tolerance</label><input type="range" min="1" max="12" value="2" id="slide_tol" onchange="calc()"></p>
+			<p><input type="radio" name="method" value="bisect" checked> Bisect Method<br>
+  				<input type="radio" name="method" value="secant"> Secant Method<br>
+  				<input type="radio" name="method" value="mod_secant"> Mod-Secant Method</p>
+			<button onclick="calc()">Find root</button>
+			<p><label id="out_ans"></label></p>
+		</center>
+	</fieldset>
+		<fieldset style="float:left;margin-right:20px;clear:both;width:21%;margin-top:5px;">
+		<legend>Examples</legend>
+		<center>
+			<ul style="margin-right:20px;">
+				<li>x^2 - 2 * x - 3, [2, 5]</li>
+				<li>sin(x) - x^3, [0.5, 1]</li>
+				<li>x^3 + 4 * x^2 - 10, [1, 2]</li>
+			</ul>
+		</center>
+	</fieldset>
+
+
+
+	<p id="tex_eq"> $$ f(x) = x^2 + 5 $$ </p>
+
+
+
+		<table class="tg" id="itable">
+		    <tr>
+		        <th style="background-color: lightblue;">i</th>
+		        <th>a</th>
+		        <th>b</th>
+		        <th>c</th>
+		        <th>f (a)</th>
+		        <th>f (b)</th>
+		        <th>f (c)</th>
+		        <th>| f (c) | < &epsilon;</th>
+			<th>| c<sub>i</sub> - c<sub>i - 1</sub> | < &epsilon;</th>
+		    </tr>
+		</table>
+	</body>
+	<script src="numercial.js"></script>
+</html>
