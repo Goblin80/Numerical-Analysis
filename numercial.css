@@ -45,3 +45,26 @@ button
 {
     background-color: palegoldenrod;
 }
+
+#eqfieldset
+{
+    float:left;
+    margin-right:20px;
+    width:21%
+}
+
+#exfieldset
+{
+    float:left;
+    margin-right:20px;
+    clear:both;
+    width:21%;
+    margin-top:5px;
+}
+
+#methodRadio
+{
+    width: 60%;
+    margin: 0 auto;
+    text-align: left;
+}

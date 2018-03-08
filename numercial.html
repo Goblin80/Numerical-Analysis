@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <fieldset style="float:left;margin-right:20px;width:21%">
+    <fieldset id="eqfieldset">
         <legend>Equation Parameters</legend>
         <center>
             <p><input type="text" placeholder="Equation goes here" id="in_eq" value="sin(x) - x^3"></p>
@@ -17,14 +17,14 @@
 
             <p><label>Precision</label><input type="range" min="2" max="10" value="4" id="slide_precision" onchange="calc()"></p>
             <p><label>Tolerance</label><input type="range" min="1" max="12" value="2" id="slide_tol" onchange="calc()"></p>
-            <p><input type="radio" name="method" value="bisect" checked> Bisect Method<br>
-                <input type="radio" name="method" value="secant"> Secant Method<br>
-                <input type="radio" name="method" value="mod_secant"> Mod-Secant Method</p>
+            <div id="methodRadio"><input type="radio" name="method" value="bisect" checked onclick="calc()"> Bisect Method<br>
+                <input type="radio" name="method" value="secant" onclick="calc()"> Secant Method<br>
+                <input type="radio" name="method" value="mod_secant" onclick="calc()"> Mod-Secant Method</div>
             <button onclick="calc()">Find root</button>
             <p><label id="out_ans"></label></p>
         </center>
     </fieldset>
-    <fieldset style="float:left;margin-right:20px;clear:both;width:21%;margin-top:5px;">
+    <fieldset id="exfieldset">
         <legend>Examples</legend>
         <center>
             <ul style="margin-right:20px;">
@@ -36,7 +36,7 @@
     </fieldset>
 
 
-    <table class="tg" id="itable">
+    <table class="tg" id="itable" width="65%">
         <tr>
             <th style="background-color: lightblue;">i</th>
             <th>a</th>
@@ -45,10 +45,8 @@
             <th>f (a)</th>
             <th>f (b)</th>
             <th>f (c)</th>
-            <th>| f (c) |
-                < &epsilon;</th>
-                    <th>| c<sub>i</sub> - c<sub>i - 1</sub> |
-                        < &epsilon;</th>
+            <th>| f (c) | < &epsilon;</th>
+            <th>| c<sub>i</sub> - c<sub>i - 1</sub> | < &epsilon;</th>
         </tr>
     </table>
 </body>

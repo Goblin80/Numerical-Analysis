@@ -9,7 +9,7 @@ class Equation
 		this.e = this.e.toLowerCase();
 		this.e = this.rep('\\^', '**');
 		this.prependMath();
-		console.log(this.e);
+		// console.log(this.e);
 	}
 
 	rep(p, q)
@@ -54,10 +54,11 @@ class NumericalMethod
 		return {'table' : t, 'root' : c};
 	}
 
-	static secant(eq, a, b) // may diverge, break at 1e-3 iterations 
+	static secant(eq, a, b) // may diverge, break at 1e2 iterations 
 	{
-		var eq = new Equation(eq), a = Number(a) , b = Number(b);
-		var t = [], cdiff;
+		var eq = new Equation(eq),
+			a = Number(a) , b = Number(b), c,
+			t = [], cdiff, iterations = 0;
 		do
 		{
 			c = Number(( b - ((eq.f(b) * (b - a)) / (eq.f(b) - eq.f(a)))).toFixed(precision));
@@ -66,15 +67,16 @@ class NumericalMethod
 			a = b;
 			b = c;
 
-		}while(Math.abs(eq.f(c)) > tol);
+		}while(Math.abs(eq.f(c)) > tol && iterations++ < 1e2);
 
 		return {'table' : t, 'root' : c};
 	}
 
 	static mod_secant(eq, a, b)
 	{
-		var eq = new Equation(eq), a = Number(a) , b = Number(b);
-		var t = [], c;
+		var eq = new Equation(eq),
+			a = Number(a) , b = Number(b), c,
+			t = [];
 		do
 		{
 			c = Number(( b - ((eq.f(b) * (b - a)) / (eq.f(b) - eq.f(a)))).toFixed(precision));
@@ -95,20 +97,23 @@ class NumericalMethod
 
 function calc()
 {
-	tex_eq.innerText = "$$ " + in_eq.value + " $$";
 	precision = Number(slide_precision.value);
 	tol = eval(10 **-slide_tol.value);
 
 	method = Array.from(document.getElementsByName('method')).filter(x => x.checked)[0].value; //iterate over radio buttons
 
 	result = NumericalMethod[method](in_eq.value, eq_start.value, eq_end.value);
-	out_ans.value = result['answer'];
+	out_ans.innerText = result['root'];
 	printtab(result['table']);
 }
 
 function printtab(tab)
 {
-	cleartab();
+	
+	// cleartab()
+	l = itable.rows.length;
+	while(--l) itable.deleteRow(l);
+
 	for(row of tab)
 	{
 		r = itable.insertRow();
@@ -118,11 +123,4 @@ function printtab(tab)
 		for(c of row)
 			r.insertCell().innerText = c;
 	}
-}
-
-function cleartab()
-{
-	l = itable.rows.length;
-	while(--l)
-		itable.deleteRow(l);
 }
