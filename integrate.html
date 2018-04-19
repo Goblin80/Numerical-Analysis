@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Numerical Integration</title>
+    <script type="text/javascript" src="js/numercial.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/numercial.css">
+</head>
+
+<body>
+    <fieldset style="width: 25%; float: left;">
+        <legend>Equation Parameters</legend>
+        <center>
+            <p><input type="text" placeholder="Equation goes here" id="in_eq"></p>
+            <p><input type="text" placeholder="from" id="eq_start" size="2">
+                <input type="text" placeholder="to" id="eq_end" size="2"></p>
+
+            <p><label>Precision</label><input type="range" min="2" max="10" value="4" id="slide_precision" onchange="calcInteg()"></p>
+            <p><label>Step</label><input type="range" min="2" max="15" value="6" id="slide_n" onchange="calcInteg()"></p>
+            <div id="methodRadio"><input type="radio" name="method" value="Midpoint" checked onclick="calcInteg()">Composite Midpoint rule<br>
+                <input type="radio" name="method" value="Trapezoidal" onclick="calcInteg()">Composite Trapezoidal rule<br>
+                <input type="radio" name="method" value="Simpson" onclick="calcInteg()">Composite Simpson's rule</div>
+            <button onclick="calcInteg()">Approximate Integral</button>
+        </center>
+    </fieldset>
+    <fieldset style="width: 25%">
+        <legend>Examples</legend>
+        <center>
+            <ul style="margin-right:20px;">
+                <li>&int; x^2, [1, 1.2]</li>
+                <li>&int; x^4, [0, 2]</li>
+                <li>&int; 1 / (1 + x), [2, 3]</li>
+            </ul>
+        </center>
+    </fieldset>
+
+    <table class="tg" id="itable" hidden>
+        <tr>
+            <th style="background-color: lightblue;">x</th>
+        </tr>
+        <tr>
+            <th style="background-color: lightblue;">f (x)</th>
+
+        </tr>
+    </table>
+
+</body>
+
+</html>

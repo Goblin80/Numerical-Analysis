@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Numercial Methods</title>
+    <title>Root-finding</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="numercial.css">
+    <link rel="stylesheet" type="text/css" href="css/numercial.css">
+    <script type="text/javascript" src="js/numercial.js"></script>
 </head>
 
 <body>
@@ -14,12 +16,12 @@
             <p><input type="text" placeholder="from" id="eq_start" size="2">
                 <input type="text" placeholder="to" id="eq_end" size="2"></p>
 
-            <p><label>Precision</label><input type="range" min="2" max="10" value="4" id="slide_precision" onchange="calc()"></p>
-            <p><label>Tolerance</label><input type="range" min="1" max="12" value="2" id="slide_tol" onchange="calc()"></p>
-            <div id="methodRadio"><input type="radio" name="method" value="bisect" checked onclick="calc()"> Bisect Method<br>
-                <input type="radio" name="method" value="secant" onclick="calc()"> Secant Method<br>
-                <input type="radio" name="method" value="mod_secant" onclick="calc()"> Mod-Secant Method</div>
-            <button onclick="calc()">Find root</button>
+            <p><label>Precision</label><input type="range" min="2" max="10" value="4" id="slide_precision" onchange="calcRoot()"></p>
+            <p><label>Tolerance</label><input type="range" min="1" max="12" value="2" id="slide_tol" onchange="calcRoot()"></p>
+            <div id="methodRadio"><input type="radio" name="method" value="bisect" checked onclick="calcRoot()"> Bisect Method<br>
+                <input type="radio" name="method" value="secant" onclick="calcRoot()"> Secant Method<br>
+                <input type="radio" name="method" value="mod_secant" onclick="calcRoot()"> Mod-Secant Method</div>
+            <button onclick="calcRoot()">Find root</button>
             <p><label id="out_ans"></label></p>
         </center>
     </fieldset>
@@ -49,6 +51,5 @@
         </tr>
     </table>
 </body>
-<script src="numercial.js"></script>
 
 </html>

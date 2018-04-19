@@ -1,4 +1,4 @@
-var	tol = 1e-2, precision = 4;
+var	tol = 1e-2, precision = 4, n = 6;
 
 class Equation
 {
@@ -9,7 +9,6 @@ class Equation
 		this.e = this.e.toLowerCase();
 		this.e = this.rep('\\^', '**');
 		this.prependMath();
-		// console.log(this.e);
 	}
 
 	rep(p, q)
@@ -94,23 +93,45 @@ class NumericalMethod
 	}
 }
 
+class NumericalIntegration
+{
+	static calcC(method, i, n)
+	{
+		if(i == 0 || i == n) return 1;
 
-function calc()
+		return {'Midpoint' : 1, 'Trapezoidal' : 2, 'Simpson' : [2, 4][i % 2]}[method];
+	}
+
+	static Approx(rawEq, a, b, method, n = 6) 
+	{
+		var e = new Equation(rawEq),
+			h = (b - a) / n,
+			m = {'Midpoint' : 1, 'Trapezoidal' : 2, 'Simpson' : 3},
+			steps = {}, res = 0;
+
+		if(!m[method]) return {'Error' : 'Unknown Method'};
+		if(method == 'Midpoint') a += 0.5 * h;
+
+		for(var i = 0, s = a; i <= n; a = s + ++i * h) // a += h
+			res += (steps[a.toFixed(precision)] = {0: e.f(a), 1: this.calcC(method, i, n) * e.f(a)})[1];
+
+		steps['result'] = {0: (h * res / m[method]).toFixed(precision)};
+		return steps;
+	}
+}
+
+function calcInteg()
 {
 	precision = Number(slide_precision.value);
-	tol = eval(10 **-slide_tol.value);
-
+	n = Number(slide_n.value);
 	method = Array.from(document.getElementsByName('method')).filter(x => x.checked)[0].value; //iterate over radio buttons
-
-	result = NumericalMethod[method](in_eq.value, eq_start.value, eq_end.value);
-	out_ans.innerText = result['root'];
-	printtab(result['table']);
+	result = NumericalIntegration.Approx(in_eq.value, Number(eq_start.value), Number(eq_end.value), method, n);
+	itable.hidden = false;
+	printdat(result)
 }
 
 function printtab(tab)
 {
-	
-	// cleartab()
 	l = itable.rows.length;
 	while(--l) itable.deleteRow(l);
 
@@ -122,5 +143,27 @@ function printtab(tab)
 		c.className = 'itCount';
 		for(c of row)
 			r.insertCell().innerText = c;
+	}
+}
+
+function printdat(tab)
+{
+	l = itable.rows[0].cells.length;
+	while(--l)
+	{
+		itable.rows[0].deleteCell(1);
+		itable.rows[1].deleteCell(1);
+	}
+
+	r = itable.rows;
+	for(row in tab)
+	{
+		c = r[0].insertCell();
+		c.innerText = row == 'result' ? '\u{03A3}' : row ;
+		c.className = 'itCount';
+
+		c = r[1].insertCell();
+		if(row == 'result') c.style.backgroundColor = 'palegreen';
+		c.innerText = tab[row][0];
 	}
 }
