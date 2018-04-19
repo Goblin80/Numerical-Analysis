@@ -1,14 +1,15 @@
 Numerical Analysis
 ===
 
-# Root-finding algorithms
-1. Bisection method
-1. Secant method
-1. Modified Secant method
+## [Root-finding algorithms](https://goblin80.github.io/Numerical-Analysis/root.html)
+* Bisection method
+* Secant method
+* Modified Secant method
 
-# Numerical Integration Rules
-1. Composie Midpoint 
-1. Composite Trapezoidal rule
-1. Composite Simpson's rule
+## [Numerical Integration Rules](https://goblin80.github.io/Numerical-Analysis/integrate.html)
+
+* Composie Midpoint 
+* Composite Trapezoidal rule
+* Composite Simpson's rule
 
 ---
