@@ -6,9 +6,9 @@ Numerical Analysis
 * Secant method
 * Modified Secant method
 
-## [Numerical Integration Rules](https://goblin80.github.io/Numerical-Analysis/integrate.html)
+## [Numerical Integration rules](https://goblin80.github.io/Numerical-Analysis/integrate.html)
 
-* Composie Midpoint 
+* Composite Midpoint rule
 * Composite Trapezoidal rule
 * Composite Simpson's rule
 
