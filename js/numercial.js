@@ -8,6 +8,7 @@ class Equation
 		this.e = rawEq;
 		this.e = this.e.toLowerCase();
 		this.e = this.rep('\\^', '**');
+		this.e = this.rep('e', 'E');
 		this.prependMath();
 	}
 
@@ -110,7 +111,7 @@ class NumericalIntegration
 			steps = {}, res = 0;
 
 		if(!m[method]) return {'Error' : 'Unknown Method'};
-		if(method == 'Midpoint') a += 0.5 * h;
+		if(method == 'Midpoint') a += 0.5 * h, n--;
 
 		for(var i = 0, s = a; i <= n; a = s + ++i * h) // a += h
 			res += (steps[a.toFixed(precision)] = {0: e.f(a), 1: this.calcC(method, i, n) * e.f(a)})[1];
