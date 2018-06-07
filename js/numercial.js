@@ -121,6 +121,18 @@ class NumericalIntegration
 	}
 }
 
+
+function calcRoot() {
+	precision = Number(slide_precision.value);
+	tol = eval(10 ** -slide_tol.value);
+
+	method = Array.from(document.getElementsByName('method')).filter(x => x.checked)[0].value; //iterate over radio buttons
+
+	result = NumericalMethod[method](in_eq.value, eq_start.value, eq_end.value);
+	out_ans.innerText = result['root'];
+	printtab(result['table']);
+}
+
 function calcInteg()
 {
 	precision = Number(slide_precision.value);
